@@ -15,6 +15,14 @@ folders_directory = os.path.join(DOWNLOADS_DIRECTORY, "01. Folder")
 mimetypes.add_type("image/webp", ".webp")
 mimetypes.add_type("project/vnd.adobe.photoshop", ".psd")
 mimetypes.add_type("project/vnd.adobe.premiere", ".prproj")
+mimetypes.add_type("compressed/x-rar-compressed", ".rar")
+mimetypes.add_type("application/x-msi", ".msi")
+mimetypes.add_type("compressed/x-7z-compressed", ".7z")
+mimetypes.add_type("application/vnd.debian.binary-package", ".deb")
+mimetypes.add_type("application/x-iso9660-image", ".iso")
+mimetypes.add_type("application/rdf+xml", ".xmp")
+mimetypes.add_type("file/x-chrome-download", ".crdownload")
+
 
 # Create a logger
 current_time = datetime.now().strftime("%d%m%y_%H%M%S")
