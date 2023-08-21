@@ -1,14 +1,16 @@
 
 # * IMPORT DEPENDENCIES
+from decouple import config
+import ast
+import mimetypes
 import os
 import logging
 from datetime import datetime
 import shutil
-from decouple import config
-import mimetypes
 
 # * INITIALIZE VARIABLES
 DOWNLOADS_DIRECTORY = config("DOWNLOADS_DIRECTORY", "")
+PRESET_TYPES = ast.literal_eval(config("PRESET_TYPES", "[]"))
 folders_directory = os.path.join(DOWNLOADS_DIRECTORY, "01. Folder")
 
 # Add custom file types
@@ -21,8 +23,8 @@ mimetypes.add_type("compressed/x-7z-compressed", ".7z")
 mimetypes.add_type("application/vnd.debian.binary-package", ".deb")
 mimetypes.add_type("application/x-iso9660-image", ".iso")
 mimetypes.add_type("application/rdf+xml", ".xmp")
+mimetypes.add_type("application/x-apple-diskimage", ".dmg")
 mimetypes.add_type("file/x-chrome-download", ".crdownload")
-
 
 # Create a logger
 current_time = datetime.now().strftime("%d%m%y_%H%M%S")
@@ -79,16 +81,8 @@ def iterate_others(directory):
 # * Function to move directories to '01. Folders'
 def move_directories(entry, directory):
 
-    # Check if the directory is a main directory.
-    is_numeric = False
-    try:
-        value = entry.name.split(". ")[0]
-        is_numeric = isinstance(int(value), int)
-    except:
-        pass
-
     # Check and move other folders to the Folders directory.
-    if entry.path != folders_directory and not is_numeric:
+    if entry.name not in PRESET_TYPES:
         src_path = os.path.join(directory, entry.name)
         dest_path = os.path.join(folders_directory, entry.name)
 
