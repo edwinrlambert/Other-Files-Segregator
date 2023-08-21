@@ -9,9 +9,6 @@ import mimetypes
 
 # * INITIALIZE VARIABLES
 DOWNLOADS_DIRECTORY = config("DOWNLOADS_DIRECTORY", "")
-current_time = datetime.now().strftime("%d%m%y_%H%M%S")
-log_filename = os.path.join(os.path.dirname(
-    os.path.abspath(__file__)), "logs", f"logfile_{current_time}.log")
 folders_directory = os.path.join(DOWNLOADS_DIRECTORY, "01. Folder")
 
 # Add custom file types
@@ -19,7 +16,10 @@ mimetypes.add_type("image/webp", ".webp")
 mimetypes.add_type("project/vnd.adobe.photoshop", ".psd")
 mimetypes.add_type("project/vnd.adobe.premiere", ".prproj")
 
-# * Create a logger
+# Create a logger
+current_time = datetime.now().strftime("%d%m%y_%H%M%S")
+log_filename = os.path.join(os.path.dirname(
+    os.path.abspath(__file__)), "logs", f"logfile_{current_time}.log")
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 l_handler = logging.FileHandler(log_filename)
