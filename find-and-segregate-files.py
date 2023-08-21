@@ -8,11 +8,11 @@ from decouple import config
 import mimetypes
 
 # * INITIALIZE VARIABLES
-OTHERS_DIRECTORY = config("OTHERS_DIRECTORY", "")
+DOWNLOADS_DIRECTORY = config("DOWNLOADS_DIRECTORY", "")
 current_time = datetime.now().strftime("%d%m%y_%H%M%S")
 log_filename = os.path.join(os.path.dirname(
     os.path.abspath(__file__)), "logs", f"logfile_{current_time}.log")
-folders_directory = os.path.join(OTHERS_DIRECTORY, "01. Folder")
+folders_directory = os.path.join(DOWNLOADS_DIRECTORY, "01. Folder")
 
 # Add custom file types
 mimetypes.add_type("image/webp", ".webp")
@@ -32,7 +32,7 @@ logger.addHandler(l_handler)
 # * Main Function.
 def main():
     try:
-        iterate_others(OTHERS_DIRECTORY)
+        iterate_others(DOWNLOADS_DIRECTORY)
     except Exception as e:
         logger.exception(f"Exception in main function: {str(e)}")
 
